@@ -38,6 +38,7 @@ def main(model_path, ocr_output_path):
     images = read_images_binary(os.path.join(model_path, "images.bin"))
     points3D = read_points3d_binary(os.path.join(model_path, "points3D.bin"))
     print(len(images))
+    dict_test2xyz = {}
     for image_id in images:
         print(images[image_id].name)
         boxes, txts, scores = load_ocr_result(ocr_output_path + "/" + images[image_id].name + ".ocr_result.npy")
@@ -55,7 +56,9 @@ def main(model_path, ocr_output_path):
             if(len(xyzs)>0):
                 xyzs = np.array(xyzs).reshape(-1, 3)
                 np.save(ocr_output_path + "/" + images[image_id].name + str(box_id) + "_cloud3d.npy", xyzs)
-
+                xyz_average = np.average(xyzs, axis=0)
+                dict_test2xyz[images[image_id].name + str(box_id)] = xyz_average
+    np.save(ocr_output_path + "/dict_test2xyz.npy", dict_test2xyz)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
