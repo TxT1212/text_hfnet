@@ -4,11 +4,8 @@
 # output: xyz \in R3 质心
 #         xyz*4 \in R12 包围圈
 ####################################################
-from os import name
 import numpy as np
 import argparse
-
-from numpy.lib.type_check import imag
 from read_write_model import *
 import math
 
@@ -30,7 +27,7 @@ def choose_text_points2d(img, box):
     up = np.max(box[:, 0, 1])
     point3D_ids_in = []
     for xy, point3D_id in zip(img.xys, img.point3D_ids):
-        if(point3D_id!=-1 and xy[1]>left and xy[1]<right and xy[0]>down and xy[0]<up):
+        if(point3D_id!=-1 and xy[0]>left and xy[0]<right and xy[1]>down and xy[1]<up):
             point3D_ids_in.append(point3D_id)
     return point3D_ids_in
 
@@ -55,9 +52,9 @@ def main(model_path, ocr_output_path):
             for points3d_id_in in points3d_ids_in:
                 xyz = points3D[points3d_id_in].xyz
                 xyzs.append(xyz)
-
-            xyzs = np.array(xyzs).reshape(-1, 3)
-            np.save(ocr_output_path + "/" + images[image_id].name + str(box_id) + "_cloud3d.npy", xyzs)
+            if(len(xyzs)>0):
+                xyzs = np.array(xyzs).reshape(-1, 3)
+                np.save(ocr_output_path + "/" + images[image_id].name + str(box_id) + "_cloud3d.npy", xyzs)
 
 
 if __name__ == '__main__':
