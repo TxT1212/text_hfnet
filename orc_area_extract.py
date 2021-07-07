@@ -56,8 +56,8 @@ def ocr_images_cut(input_path, ocr_results, output_path):
                 if ratio_w_h < 0.8:
                     image_chop = image_chop.transpose(1, 0, 2)
                 txt = txts[i]
-                save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_isFlip:0" + "_txt:" + txt.replace(
-                    "/", "") + "_wh-ratio:" + str(ratio_w_h) + "_confidence:" + str(int(scores[i]*1000)/1000.) + "_expand:" + str(expand_ratio) + ".jpg"
+                save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_isFlip_0" + "_txt_" + txt.replace(
+                    "/", "") + "_wh-ratio_" + str(ratio_w_h) + "_confidence_" + str(int(scores[i]*1000)/1000.) + "_expand_" + str(expand_ratio) + ".jpg"
                 print(save_name)
                 cv2.imwrite(save_name, image_chop)
 
