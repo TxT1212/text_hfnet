@@ -5,14 +5,14 @@ import pickle
 import os
 
 
-image_names = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/db_gallery_images.npy')
-globaldesc = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/db_gallery_features.npy')
+image_names = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/db_gallery_images_ibl.npy')
+globaldesc = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/db_gallery_features_ibl.npy')
 
 # image_names_pyram = np.load('saved/database_hfnet_globalindex.npy')
 # globaldesc = np.load('saved/database_hfnet_globaldesc.npy')
 
-image_names_query = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/gallery_images.npy')
-globaldesc_query = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/gallery_features.npy')
+image_names_query = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/gallery_images_ibl.npy')
+globaldesc_query = np.load('/home/ezxr/Downloads/PaddleClas/deploy/save/gallery_features_ibl.npy')
 
 ## fit
 nbrs = NearestNeighbors(n_neighbors=50, algorithm='auto').fit(globaldesc)

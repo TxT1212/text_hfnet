@@ -10,11 +10,9 @@ import glob2
 import os
 import sys
 
-
 def find_recursive(root_dir, ext='.jpg'):
     files = glob2.glob(os.path.join(root_dir, './**/*'+ext), recursive=True)
     return files
-
 
 def ocr_area_mask_generate(input_path, ocr_results, output_path):
     for i in range(0, len(ocr_results)):
@@ -49,7 +47,6 @@ def ocr_area_mask_generate(input_path, ocr_results, output_path):
             str.replace(img_path, input_path, "") + "mask.jpg"
         print(save_name)
         cv2.imwrite(save_name, mask)
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

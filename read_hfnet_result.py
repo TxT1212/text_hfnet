@@ -6,9 +6,12 @@ import os
 
 
 image_names = np.load('saved/database_hfnet_globalindex.npy')
-image_names_query = np.load('saved/query_hfnet_globalindex.npy')
-
 globaldesc = np.load('saved/database_hfnet_globaldesc.npy')
+
+# image_names_pyram = np.load('saved/database_hfnet_globalindex.npy')
+# globaldesc = np.load('saved/database_hfnet_globaldesc.npy')
+
+image_names_query = np.load('saved/query_hfnet_globalindex.npy')
 globaldesc_query = np.load('saved/query_hfnet_globaldesc.npy')
 
 ## fit
@@ -17,8 +20,8 @@ knnPickle = open('saved/knn_model50', 'wb')
 pickle.dump(nbrs, knnPickle)
 nn_model = nbrs
 
-### load
-# nn_model = pickle.load(open('saved/knn_model1', 'rb'))
+## load
+nn_model = pickle.load(open('saved/knn_model1', 'rb'))
 
 distances, indices = nn_model.kneighbors(globaldesc_query) 
 for i in range(0,image_names_query.size):
@@ -35,10 +38,5 @@ for i in range(0,image_names_query.size):
 
 #         print("*****", names[ii], distances[i][ii+1] )
 
-# image_names_new = []
-# for img in image_names:
-#     img_new = img.replace(":","_")
-#     print(img_new)
-#     image_names_new.append(img_new)
-#     os.rename(img, img_new)
-# np.save('saved/database_hfnet_globalindex.npy', np.array(image_names_new))
+
+

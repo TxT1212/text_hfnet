@@ -4,7 +4,10 @@ import numpy as np
 import re
 # def SR():
 #     pass
-with open("/home/ezxr/Documents/wxc/pic_ocr_flip/items_3d.bin", 'rb') as fb:
+item_3d_path = "/home/ezxr/Documents/ibl_dataset_cvpr17_3852/training_image_ocr/items_3d.bin"
+paddle_log = "logs_ibl/paddleClas_nn.txt"
+hfnet_log = "logs_ibl/log_pyr_4.txt"
+with open(item_3d_path, 'rb') as fb:
     items_3d = pickle.load(fb)
 # ocr_output_path = '/home/ezxr/Documents/wxc/pic_ocr_flip/'
 # print(len(items_3d))
@@ -19,6 +22,7 @@ for id in range(0, len(items_3d)):
     # break
     for img in item_3d[2]:
         img = re.sub('/./', '/', img)
+        img = re.sub("//", "/", img)
         dict_img_3d[img] = id
 for item in dict_img_3d:
     # print(item in dict_img_3d, item, dict_img_3d[item])
@@ -68,12 +72,10 @@ def read_nn_log(log_path='logs/log_pyr_4.txt'):
     #         print("**", nn)
     return dict
 
-log_hfnet_nn = 'logs/log_pyr_4.txt'
-dict_hfnet_nn = read_nn_log(log_hfnet_nn)
+dict_hfnet_nn = read_nn_log(hfnet_log)
 
 
-log_paddle_clas_ = 'logs/paddle_clas_.txt'
-dict_paddle_clas_nn = read_nn_log(log_paddle_clas_)
+dict_paddle_clas_nn = read_nn_log(paddle_log)
 
 items_3d_now = set()
 paddle_clas_item=[]
@@ -90,7 +92,13 @@ for query_img in dict_paddle_clas_nn:
         # print("good\t", nn_result, difference, dict_img_3d[nn_result])
         paddle_clas_item.append(nn_result)
         items_3d_now.add(dict_img_3d[nn_result])
-    print("items_3d_now: ", items_3d_now, paddle_clas_item)
+    print("items_3d_now: ", items_3d_now)
+    for img in paddle_clas_item:
+        print(img, dict_img_3d[img])
+    items_3d_now_list = list(items_3d_now)
+
+    for item_3d_now in items_3d_now_list:
+        print(items_3d[item_3d_now][0], items_3d[item_3d_now][1], item_3d_now)
     
     if(len(items_3d_now)==0):
         print("Failed: no paddle_clas candidate, most likely candidate:")
@@ -109,7 +117,6 @@ for query_img in dict_paddle_clas_nn:
         continue     
     else:
         if(len(items_3d_now)<3 and len(paddle_clas_item) > 3):
-            items_3d_now_list = list(items_3d_now)
             item1 = items_3d[items_3d_now_list[0]]
             item2 = items_3d[items_3d_now_list[1]]
             angle, distance = item_3d_diff(item1, item2) 

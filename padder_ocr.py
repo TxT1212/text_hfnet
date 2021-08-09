@@ -66,7 +66,7 @@ def ocr_images(input_path, imgs, output_path, chop_charactor):
             if ratio_w_h < 0.8:
                 image_chop = image_chop.transpose(1,0,2)
             txt = txts[i]
-            save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_isFlip:0" + "_txt:" + txt.replace("/", "") +"_wh-ratio:"  +str(ratio_w_h) + "_confidence:" + str(int(scores[i]*1000)/1000.)+ ".jpg"
+            save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_isFlip:0" + "_txt:" + txt.replace("/", "").replace(" ", "") +"_wh-ratio:"  +str(ratio_w_h) + "_confidence:" + str(int(scores[i]*1000)/1000.)+ ".jpg"
             print(save_name)
             cv2.imwrite(save_name, image_chop)
 
@@ -85,7 +85,7 @@ def ocr_images(input_path, imgs, output_path, chop_charactor):
                         print(txts[i], " -> ", txts_flip[0])
                         txts[i] = txts_flip[0]
                         isFlip = 1
-                        save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_isFlip:1" + "_txt:" + txts[i].replace("/", "") +"_wh-ratio:"  +str(ratio_w_h) + "_confidence:" + str(int(scores[i]*1000)/1000.)+ ".jpg"
+                        save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_isFlip:1" + "_txt:" + txts[i].replace("/", "").replace(" ", "") +"_wh-ratio:"  +str(ratio_w_h) + "_confidence:" + str(int(scores[i]*1000)/1000.)+ ".jpg"
                         cv2.imwrite(save_name, image_chop)
 
 
