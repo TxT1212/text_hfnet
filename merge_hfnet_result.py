@@ -4,10 +4,12 @@ from sklearn.neighbors import NearestNeighbors
 import pickle
 import os
 
-for pyramid_id in [0, 1, 2, 4]:
+# for pyramid_id in [0, 1, 2, 4]:
+for pyramid_id in [4]:
     globaldesc = np.array([[]])
     globalindex = np.array([[]])
-    for floor_id in [1, 2]:
+    for floor_id in [1]:
+    # for floor_id in [1, 2]:
         globaldesc_name = "saved/db_f" + \
             str(floor_id) + "_pyramid" + \
             str(pyramid_id) + "_hfnet_globaldesc.npy"

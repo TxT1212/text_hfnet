@@ -28,4 +28,4 @@ for i in range(0,image_names_query.size):
     names = [image_names[indices_now] for indices_now in indices[i]][0:50]
     print(i, image_names_query[i])
     for ii in range(0, 19):
-        print("**", names[ii], distances[i][ii+1] )
+        print("**", names[ii], distances[i][ii+1])

@@ -11,7 +11,7 @@ import cv2
 import scipy.io as sio
 import os
 import re
-import glob
+import glob2
 import pickle
 import time
 tf.contrib.resampler
@@ -252,8 +252,8 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model):
                     lines = file.readlines()
                     lines = sorted(lines)
                 elif os.path.isdir(image_path):
-                    lines = glob.glob(os.path.join(
-                        image_path, '*expand_4.jpg'))
+                    lines = glob2.glob(os.path.join(
+                        image_path, './**/*'+'expand_4.jpg'))
                     lines = sorted(lines)
                 else:
                     fd = open(image_path, 'rb')
@@ -298,10 +298,10 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model):
                 np.save(save_dir+prefix+'_'+'hfnet' +
                         '_globalindex.npy', hf_global_index_dict)
                 print('saved global!')
-                np.save(save_dir+prefix+'_'+'hfnet' +
-                        '_localdesc.npy', hf_local_desc_mat)
-                np.save(save_dir+prefix+'_'+'hfnet' +
-                        '_keypoints.npy', hf_keypoints_mat)
+                # np.save(save_dir+prefix+'_'+'hfnet' +
+                #         '_localdesc.npy', hf_local_desc_mat)
+                # np.save(save_dir+prefix+'_'+'hfnet' +
+                #         '_keypoints.npy', hf_keypoints_mat)
                 print('saved all!')
 
 
@@ -312,6 +312,7 @@ if __name__ == '__main__':
     # mv3_pb_path_ = "./models/posenet/270000_frozen.pb"
     # image info of database data
     image_path_ = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/query_images_ocr/'
+    image_path_ = '/media/ezxr/data/nevar/HyundaiDepartmentStore_ocr/1F/mapping/mapping_image_list_3.txt'
     # image_path_ = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/training_image_ocr/'
     # image_path_ = '/home/ezxr/Documents/wxc/pic_ocr_flip/f2'
     # image_path_ = '/home/ezxr/Documents/tem/'
@@ -326,7 +327,7 @@ if __name__ == '__main__':
     # db_hfnet_keypoint = './saved/database_hfnet_keypoints.npy'
     # db_hfnet_index = './saved/database_hfnet_globalindex.npy'
     # output dir , saved results
-    save_dir = './saved_ibl/'
+    save_dir = './saved_naver/'
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
     global_desc_mat = []
@@ -339,4 +340,4 @@ if __name__ == '__main__':
     hf_local_desc_mat = []
 
     freeze_graph_images(pb_path=yolo_pb_path_, image_path=image_path_,
-                        save_dir=save_dir, prefix='query_pyramid4', model='hfnet')
+                        save_dir=save_dir, prefix='f1_3', model='hfnet')

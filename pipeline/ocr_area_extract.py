@@ -33,7 +33,7 @@ def ocr_images_cut(input_path, ocr_results, output_path):
         img_path = ocr_results[i].replace(".ocr_result.npy", "").replace(output_path, input_path)
         print(img_path)
         img = cv2.imread(img_path, 1)
-        expand_ratios = [0, 1, 2, 4, 6, 8]
+        expand_ratios = [0, 4, 8]
         for i in range(box_num):
             if scores is not None and (scores[i] < drop_score or math.isnan(scores[i])):
                 continue
@@ -58,8 +58,8 @@ def ocr_images_cut(input_path, ocr_results, output_path):
                 if ratio_w_h < 0.8:
                     image_chop = image_chop.transpose(1, 0, 2)
                 txt = txts[i]
-                save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_isFlip_0" + "_txt_" + txt.replace(
-                    "/", "").replace(" ", "") + "_wh-ratio_" + str(ratio_w_h) + "_confidence_" + str(int(scores[i]*1000)/1000.) + "_expand_" + str(expand_ratio) + ".jpg"
+                save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_txt_" + txt.replace(
+                    "/", "").replace(" ", "") + "_confidence_" + str(int(scores[i]*1000)/1000.) + "_expand_" + str(expand_ratio) + ".jpg"
                 print(save_name)
                 cv2.imwrite(save_name, image_chop)
 

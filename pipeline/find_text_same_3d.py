@@ -9,7 +9,7 @@ from numpy.lib.type_check import imag
 import math
 def find_recursive(root_dir, ext='.jpg'):
     files = glob2.glob(os.path.join(root_dir, './**/*'+ext), recursive=True)
-    files.sort
+    files = files.sort()
     return files
 
 def main(ocr_output_path):

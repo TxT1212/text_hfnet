@@ -354,6 +354,11 @@ def example_usage():
     if os.path.exists(args.database_path):
         os.remove(args.database_path)
 
+def create_db_from_model(cameras, imgs, points, database_path):
+    db = COLMAPDatabase.connect(database_path)
+
+
+    db.create_tables()
 
 if __name__ == "__main__":
     example_usage()
