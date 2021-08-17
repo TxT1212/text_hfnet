@@ -12,6 +12,7 @@ import math
 # read estimate result
 results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_netvlad20_.txt"
 results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_ours.txt"
+results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_hfnet_org1.txt"
 
 
 def read_pose_hloc(results_q_pose):
@@ -108,9 +109,10 @@ cout_excelent = 0
 cout_good = 0
 cout_ok = 0
 # print(angles.size) (0.25m, 2°) / (1m, 5°)
-
-dist_thrd = [0.1, 0.25, 1]
-angle_thrd = [1, 2, 5]
+dist_thrd = [0.25, 0.5, 5]
+angle_thrd = [2, 5, 10]
+# dist_thrd = [0.1, 0.25, 1]
+# angle_thrd = [1, 2, 5]
 for i in range(angles.size):
     if (distances[i] < dist_thrd[0] and angles[i] < angle_thrd[0]):
         cout_excelent+=1 

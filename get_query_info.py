@@ -73,4 +73,4 @@ def shink_query_list_with_another_list(l1, l2):
     for line in lines_2:
         if(line.split()[0] in names):
             print(line[:-1])
-shink_query_list_with_another_list("/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_ours.txt", '/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_netvlad20.txt') 
+shink_query_list_with_another_list("/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_ours.txt", '/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_hfnet_org.txt') 
