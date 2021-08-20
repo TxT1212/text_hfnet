@@ -10,9 +10,12 @@ from numpy.core.records import recarray
 import colmap_model.read_write_model
 import math
 # read estimate result
-results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_netvlad20_.txt"
-results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_ours.txt"
-results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_hfnet_org1.txt"
+results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_netvlad50_.txt"
+# results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_netvlad20_.txt"
+# results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_ours.txt"
+# results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_hfnet_org1.txt"
+# results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_hfnet_ocr_.txt"
+# results_q_pose = "/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_logo_ocr_.txt"
 
 
 def read_pose_hloc(results_q_pose):
@@ -120,6 +123,6 @@ for i in range(angles.size):
         cout_good+=1 
     if (distances[i] < dist_thrd[2] and angles[i] < angle_thrd[2]):
         cout_ok+=1 
-print("0.25m, 2°:",cout_excelent, "/", angles.size, " ", cout_excelent*1.0/angles.size)
-print("0.5m, 5°:",cout_good, "/", angles.size, " ",  cout_good*1.0/angles.size)
-print("5m, 10°:",cout_ok, "/", angles.size, " ",  cout_ok*1.0/angles.size)
+print(dist_thrd[0], "m", angle_thrd[0],"°:",cout_excelent, "/", angles.size, " ", cout_excelent*1.0/angles.size)
+print(dist_thrd[1], "m", angle_thrd[1],"°:",cout_good, "/", angles.size, " ",  cout_good*1.0/angles.size)
+print(dist_thrd[2], "m", angle_thrd[2],"°:",cout_ok, "/", angles.size, " ",  cout_ok*1.0/angles.size)

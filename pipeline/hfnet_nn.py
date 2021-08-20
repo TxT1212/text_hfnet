@@ -33,7 +33,7 @@ for i in range(0,image_names_query.size):
     # print(i, image_names_query[i])
     for ii in range(0, 5):
         # print("**", names[ii], distances[i][ii])
-        q = re.sub('[0,9]*_isFlip.*', '', image_names_query[i]).replace(query_img_ocr_path, "")
-        d = re.sub('[0,9]*_isFlip.*', '', names[ii]).replace(db_img_ocr_path, "")
+        q = re.sub('[0-9]*_isFlip.*', '', image_names_query[i]).replace(query_img_ocr_path, "")
+        d = re.sub('[0-9]*_isFlip.*', '', names[ii]).replace(db_img_ocr_path, "")
         print(q, d)
 

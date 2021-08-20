@@ -360,5 +360,10 @@ def create_db_from_model(cameras, imgs, points, database_path):
 
     db.create_tables()
 
+    
+    db.add_keypoints(image_id1, keypoints1)
+
+    db.commit()
+
 if __name__ == "__main__":
     example_usage()
