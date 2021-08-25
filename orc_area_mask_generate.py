@@ -4,7 +4,7 @@ from typing import Pattern
 import numpy as np
 import argparse
 import math
-import cv2
+from cv2 import cv2
 from tqdm import tqdm
 import glob2
 import os

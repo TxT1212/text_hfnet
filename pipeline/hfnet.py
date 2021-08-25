@@ -253,7 +253,8 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model):
                     lines = sorted(lines)
                 elif os.path.isdir(image_path):
                     lines = glob2.glob(os.path.join(
-                        image_path, './**/*'+'expand_4.jpg'))
+                        image_path, './**/*'+'.jpg'))
+                        # image_path, './**/*'+'expand_4.jpg'))
                     lines = sorted(lines)
                 else:
                     fd = open(image_path, 'rb')
@@ -273,16 +274,13 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model):
                 for line in lines:
                     run_index = run_index + 1
                     database_img_n = line.strip()
-                    print(database_img_n)
                     image = cv2.imread(database_img_n, 3)[:, :, ::-1]
                     image = cv2.resize(image, (640, 480),
                                        interpolation=cv2.INTER_CUBIC)
                     # cv2.imshow("1", image)
                     # cv2.waitKey()
-                    print("image.shape:", image.shape)
                     net_input = np.expand_dims(
                         image[..., ::-1].astype(np.float), axis=0)
-                    print("net shape", net_input.shape)
                     input_map = {input_image_tensor: net_input}
                     hfout = sess.run(output_tensor_name, feed_dict=input_map)
                     global_descriptor = hfout['global_descriptor']
@@ -308,11 +306,12 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model):
 if __name__ == '__main__':
     #os.environ['CUDA_VISIBLE_DEVICES'] = '6'
     # model path for posenet and hfnet
-    yolo_pb_path_ = "/home/ezxr/Downloads/hfnet/models/hfnet_total.pb"  # hfnet_c11_50000
+    yolo_pb_path_ = "/home/txt/Downloads/hfnet_total.pb"  # hfnet_c11_50000
     # mv3_pb_path_ = "./models/posenet/270000_frozen.pb"
     # image info of database data
     image_path_ = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/query_images_ocr/'
     image_path_ = '/media/ezxr/data/nevar/HyundaiDepartmentStore_ocr/1F/mapping/mapping_image_list_3.txt'
+    image_path_ = "/media/txt/data2/naver/ocr/4F/release/"
     # image_path_ = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/training_image_ocr/'
     # image_path_ = '/home/ezxr/Documents/wxc/pic_ocr_flip/f2'
     # image_path_ = '/home/ezxr/Documents/tem/'
@@ -327,7 +326,7 @@ if __name__ == '__main__':
     # db_hfnet_keypoint = './saved/database_hfnet_keypoints.npy'
     # db_hfnet_index = './saved/database_hfnet_globalindex.npy'
     # output dir , saved results
-    save_dir = './saved_naver/'
+    save_dir = './saved/'
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
     global_desc_mat = []
@@ -339,5 +338,9 @@ if __name__ == '__main__':
     hf_global_index_dict = []
     hf_local_desc_mat = []
 
+    # freeze_graph_images(pb_path=yolo_pb_path_, image_path=image_path_,
+    #                     save_dir=save_dir, prefix='4F', model='hfnet')
+    image_path_ = "/media/txt/data2/naver/ocr/B1/release/"
+    image_path_ =  "/media/txt/data2/naver/HyundaiDepartmentStore/1F/release"
     freeze_graph_images(pb_path=yolo_pb_path_, image_path=image_path_,
-                        save_dir=save_dir, prefix='f1_3', model='hfnet')
+                        save_dir=save_dir, prefix='F1_org', model='hfnet')

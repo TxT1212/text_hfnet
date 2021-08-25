@@ -5,7 +5,6 @@ import pickle
 import glob2
 import colmap_model.read_write_model
 import re
-import kapture
 
 
 def find_recursive(root_dir, ext='.jpg'):
@@ -18,6 +17,7 @@ def find_recursive(root_dir, ext='.jpg'):
 query_image_path = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/query_images_undistort/'
 # query_image_path = '/media/ezxr/data/nevar/HyundaiDepartmentStore/1F/mapping/'
 query_orc_path = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/query_images_ocr/'
+query_orc_path = '/media/txt/data2/naver/ocr/1F/release/test/sensors/records_data/'
 # query_orc_path = '/media/ezxr/data/nevar/HyundaiDepartmentStore_ocr/1F/mapping/'
 query_image_with_text_list = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/queries.txt'
 imgs = find_recursive(query_image_path)
@@ -28,12 +28,16 @@ def get_query_list():
     # 去除文字检测失败的图片
     ocrs = find_recursive(query_orc_path, 'jpg*expand_4.jpg')
 
-    # image_suc = set()
+    image_suc = set()
     for ocr in ocrs:
-        print(ocr)
+        ocr = ocr.replace(query_orc_path, '')
+        ocr = re.sub('[0-9]*_txt.*','',ocr)
+        # print(ocr)
+        image_suc.add(ocr)
         # ocr = re.sub('0_txt.*', '', ocr)
         # image_suc.add(ocr)
-    # for ocr in image_suc:
+    for ocr in image_suc:
+        print(ocr)
     #     print(ocr.replace(query_orc_path, ""))
     # for img in imgs:
     #     img = img.replace(query_image_path, "")
@@ -94,7 +98,7 @@ def get_query_with_intrinsics_from_kapture(camera_path, image_path):
 
 camera_path = '/media/ezxr/data/nevar/HyundaiDepartmentStore/1F/test/sensors.txt'
 image_path = '/media/ezxr/data/nevar/HyundaiDepartmentStore/1F/test/records_camera.txt'
-get_query_with_intrinsics_from_kapture(camera_path, image_path)
+# get_query_with_intrinsics_from_kapture(camera_path, image_path)
 
 
 def shink_query_list_with_another_list(l1, l2):
@@ -109,3 +113,4 @@ def shink_query_list_with_another_list(l1, l2):
         if(line.split()[0] in names):
             print(line[:-1])
 # shink_query_list_with_another_list("/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_ours.txt", '/home/ezxr/Downloads/Hierarchical-Localization/outputs/ibl/hloc_superpoint+superglue_netvlad100.txt')
+shink_query_list_with_another_list("query_image_with_text_list.txt", '/media/txt/data2/naver/HyundaiDepartmentStore/outputs/1F/hloc_superpoint+superglue_hhnet_20_.txt')

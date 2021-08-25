@@ -94,9 +94,10 @@ test_set.add(1)
 test_set.clear()
 a =1
 # print(a in test_set)
-assert False
+# assert False
 
-a = np.array([1, 2, 3])
+a = np.array([[1, 2, 3],[ 4,5,6]])
 b = np.array([2, 4, 5])
 # print((a != a).any())
-
+c = [1, 0, 1]
+print(a[c])

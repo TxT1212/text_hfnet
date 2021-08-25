@@ -1,5 +1,5 @@
 import os,sys
-sys.path.append('/home/ezxr/Downloads/ocr/PaddleOCR')
+sys.path.append('/home/txt/Downloads/ezxr_loc/PaddleOCR/')
 from paddleocr import PaddleOCR,draw_ocr
 from PIL import Image
 import glob2

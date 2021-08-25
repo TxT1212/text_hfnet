@@ -5,7 +5,9 @@ import glob2
 import re
 
 hloc_trac = '/media/txt/data2/naver/outputs/4F/hloc_superpoint+superglue_netvlad50.txt'
-cameras = '/media/txt/data2/naver/HyundaiDepartmentStore/4F/release/test/sensors/records_camera.txt'
+hloc_trac = '/media/txt/data2/naver/outputs/4F/hloc_superpoint+superglue_hnet_ocr5.txt'
+hloc_trac = '/media/txt/data2/naver/HyundaiDepartmentStore/outputs/1F/hloc_superpoint+superglue_hhnet_20.txt'
+cameras = '/media/txt/data2/naver/HyundaiDepartmentStore/1F/release/test/sensors/records_camera.txt'
 f = open(cameras, 'r')
 img_name_full = {}
 lines_c = open(cameras, 'r')
