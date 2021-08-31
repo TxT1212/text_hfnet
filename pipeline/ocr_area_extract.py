@@ -82,7 +82,11 @@ def ocr_images_cut(input_path, ocr_results, output_path):
                 left_expand = int(left_expand)
                 up_expand = int(up_expand)
                 right_expand = int(right_expand)
-                image_chop = img[down_expand:up_expand, left_expand:right_expand]
+                if(expand_ratio > 0):
+                    image_chop = img[down_expand:up_expand,
+                                     left_expand:right_expand]
+                else:
+                    image_chop = img[down: up, left:right]
 
                 # save result
                 txt = txts[i]
