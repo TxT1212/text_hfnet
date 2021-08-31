@@ -12,6 +12,7 @@ import sys
 
 # ** /home/ezxr/Documents/wxc/pic_ocr_flip/f1/./wxc_f1_20201214_f1n_route8_0003/00000180.jpg2_isFlip_0_txt_CHAUMET_wh-ratio_6.77_confidence_0.954_expand_4.jpg 0.901420440186386
 
+
 def find_recursive(root_dir, ext='.jpg'):
     files = glob2.glob(os.path.join(root_dir, './**/*'+ext), recursive=True)
     files.sort
@@ -30,7 +31,8 @@ def ocr_images_cut(input_path, ocr_results, output_path):
         # chop text area
         box_num = len(boxes)
         drop_score = 0.5
-        img_path = ocr_results[i].replace(".ocr_result.npy", "").replace(output_path, input_path)
+        img_path = ocr_results[i].replace(
+            ".ocr_result.npy", "").replace(output_path, input_path)
         print(img_path)
         img = cv2.imread(img_path, 1)
         expand_ratios = [0, 4, 8]
@@ -44,19 +46,21 @@ def ocr_images_cut(input_path, ocr_results, output_path):
             down = np.min(box[:, 0, 1])
             up = np.max(box[:, 0, 1])
             height_ = up - down
+            center_u = (left + right) / 2
+            center_v = (up + down) / 2
+            exapnd_max = min(img.shape[0] - up, left, down, img.shape[1]-right)
             for expand_ratio in expand_ratios:
-                left_expand = max(left - int(width_/2)*expand_ratio, 0)
-                down_expand = max(down - int(height_/2)*expand_ratio, 0)
-                right_expand = min(right + int(width_/2) *
-                                   expand_ratio, img.shape[1])
-                up_expand = min(up + int(height_/2)*expand_ratio, img.shape[0])
+                exapnd_expect = max(width_, height_)*expand_ratio/2
+                exapnd_actual = min(exapnd_expect, exapnd_max)
+                exapnd_actual = int(exapnd_actual)
+                left_expand = left - exapnd_actual
+                down_expand = down - exapnd_actual
+                right_expand = right + exapnd_actual
+                up_expand = up + exapnd_actual
                 image_chop = img[down_expand:up_expand +
                                  1, left_expand:right_expand+1]
 
                 # save result
-                ratio_w_h = int((right-left)/(up-down)*100)/100
-                if ratio_w_h < 0.8:
-                    image_chop = image_chop.transpose(1, 0, 2)
                 txt = txts[i]
                 save_name = output_path + str.replace(img_path, input_path, "") + str(i) + "_txt_" + txt.replace(
                     "/", "").replace(" ", "") + "_confidence_" + str(int(scores[i]*1000)/1000.) + "_expand_" + str(expand_ratio) + ".jpg"
