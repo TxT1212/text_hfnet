@@ -231,7 +231,8 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model, image_suff
                 # for op in graph.get_operations():
                 #    # print出tensor的name和值
                 #    print(op.name, op.values())
-            config = tf.ConfigProto()
+            #config = tf.ConfigProto()
+            config = tf.ConfigProto(log_device_placement=True,allow_soft_placement=True)
             config.gpu_options.allow_growth = True
             with tf.Session(config=config) as sess:
                 sess.run(tf.global_variables_initializer())
@@ -305,6 +306,7 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model, image_suff
 if __name__ == '__main__':
     #os.environ['CUDA_VISIBLE_DEVICES'] = '6'
     # model path for posenet and hfnet
+
     parser = argparse.ArgumentParser(
         description="hfnet"
     )
@@ -348,6 +350,14 @@ if __name__ == '__main__':
     # image_path_ = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/query_images_ocr/'
     # image_path_ = '/media/ezxr/data/nevar/HyundaiDepartmentStore_ocr/1F/mapping/mapping_image_list_3.txt'
     # image_path_ = "/media/txt/data2/naver/ocr/4F/release/"
+
+    #yolo_pb_path_ = "/home/mm/ARWorkspace/ARResearch/text_hfnet/hfnet_total.pb"  # hfnet_c11_50000
+    # mv3_pb_path_ = "./models/posenet/270000_frozen.pb"
+    # image info of database data
+    #image_path_ = '/data/largescene/B1_lining/images/wxc_b1_1214test_lining_route1_0001'
+  #  image_path_ = '/media/ezxr/data/nevar/HyundaiDepartmentStore_ocr/1F/mapping/mapping_image_list_3.txt'
+  #  image_path_ = "/media/txt/data2/naver/ocr/4F/release/"
+
     # image_path_ = '/home/ezxr/Documents/ibl_dataset_cvpr17_3852/training_image_ocr/'
     # image_path_ = '/home/ezxr/Documents/wxc/pic_ocr_flip/f2'
     # image_path_ = '/home/ezxr/Documents/tem/'
@@ -376,5 +386,6 @@ if __name__ == '__main__':
 
 
     image_path_ =  args.input_path
+
     freeze_graph_images(pb_path=yolo_pb_path_, image_path=image_path_,
                         save_dir=save_dir, prefix=args.save_prefix, model='hfnet', image_suffix=args.image_suffix)
