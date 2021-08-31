@@ -232,7 +232,8 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model, image_suff
                 #    # print出tensor的name和值
                 #    print(op.name, op.values())
             #config = tf.ConfigProto()
-            config = tf.ConfigProto(log_device_placement=True,allow_soft_placement=True)
+            config = tf.ConfigProto(
+                log_device_placement=True, allow_soft_placement=True)
             config.gpu_options.allow_growth = True
             with tf.Session(config=config) as sess:
                 sess.run(tf.global_variables_initializer())
@@ -291,9 +292,9 @@ def freeze_graph_images(pb_path, image_path, save_dir, prefix, model, image_suff
                         database_img_n.split('data/')[-1])
                     hf_local_desc_mat.append(local_descriptors)
                     hf_keypoints_mat.append(keypoints)
-                np.save(save_dir+prefix+'_'+'hfnet'+'_globaldesc.npy',
+                np.save(save_dir+prefix+'_globaldesc.npy',
                         np.array(hf_global_desc_mat, np.float32))
-                np.save(save_dir+prefix+'_'+'hfnet' +
+                np.save(save_dir+prefix +
                         '_globalindex.npy', hf_global_index_dict)
                 print('saved global!')
                 # np.save(save_dir+prefix+'_'+'hfnet' +
@@ -351,7 +352,7 @@ if __name__ == '__main__':
     # image_path_ = '/media/ezxr/data/nevar/HyundaiDepartmentStore_ocr/1F/mapping/mapping_image_list_3.txt'
     # image_path_ = "/media/txt/data2/naver/ocr/4F/release/"
 
-    #yolo_pb_path_ = "/home/mm/ARWorkspace/ARResearch/text_hfnet/hfnet_total.pb"  # hfnet_c11_50000
+    # yolo_pb_path_ = "/home/mm/ARWorkspace/ARResearch/text_hfnet/hfnet_total.pb"  # hfnet_c11_50000
     # mv3_pb_path_ = "./models/posenet/270000_frozen.pb"
     # image info of database data
     #image_path_ = '/data/largescene/B1_lining/images/wxc_b1_1214test_lining_route1_0001'
@@ -384,8 +385,7 @@ if __name__ == '__main__':
     hf_global_index_dict = []
     hf_local_desc_mat = []
 
-
-    image_path_ =  args.input_path
+    image_path_ = args.input_path
 
     freeze_graph_images(pb_path=yolo_pb_path_, image_path=image_path_,
                         save_dir=save_dir, prefix=args.save_prefix, model='hfnet', image_suffix=args.image_suffix)
