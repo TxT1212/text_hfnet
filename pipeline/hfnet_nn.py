@@ -42,8 +42,8 @@ parser.add_argument(
     default=2
 )
 args = parser.parse_args()
-globaldesc_path = args.input_path + args.save_db_prefix + 'hfnet_globaldesc.npy'
-image_names_path = args.input_path + args.save_db_prefix + 'hfnet_globalindex.npy'
+globaldesc_path = args.input_path + args.save_db_prefix + '_globaldesc.npy'
+image_names_path = args.input_path + args.save_db_prefix + '_globalindex.npy'
 globaldesc = np.load(globaldesc_path)
 image_names = np.load(image_names_path)
 
@@ -70,9 +70,9 @@ else:
     image_names_path = args.input_path + args.save_query_prefix + '_globalindex.npy'
     globaldesc_query = np.load(globaldesc_path)
     image_names_query = np.load(image_names_path)
-# print(desc_db.shape, name_db.shape, image_names_query.shape, globaldesc_query.shape)
+# print("debug:", desc_db.shape, name_db.shape, image_names_query.shape, globaldesc_query.shape)
 
-# ## fit
+## fit
 nbrs = NearestNeighbors(n_neighbors=20, algorithm='auto').fit(desc_db)
 # knnPickle = open('saved/knn_model_F1_org', 'wb') 
 # pickle.dump(nbrs, knnPickle)
